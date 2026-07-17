@@ -23,8 +23,8 @@ const step1Schema = z.object({
     }
     return age >= 18;
   }, { message: "You must be at least 18 years old" }),
-  loanAmount: z.coerce.number().min(10000, "Minimum loan amount is ₹10,000").max(50000000, "Maximum loan amount is ₹5 Crore"),
-  loanTenure: z.coerce.number().min(12, "Minimum tenure is 12 months").max(360, "Maximum tenure is 360 months"),
+  loanAmount: z.number().min(10000, "Minimum loan amount is ₹10,000").max(50000000, "Maximum loan amount is ₹5 Crore"),
+  loanTenure: z.number().min(12, "Minimum tenure is 12 months").max(360, "Maximum tenure is 360 months"),
   loanPurpose: z.string().min(1, "Please select loan purpose"),
 })
 
@@ -34,9 +34,9 @@ const step2Schema = z.object({
   state: z.string().min(2, "State must be at least 2 characters"),
   zipCode: z.string().regex(/^\d{6}$/, "ZIP/Pincode must be exactly 6 digits"),
   employmentStatus: z.string().min(1, "Please select employment status"),
-  monthlyIncome: z.coerce.number().min(10000, "Minimum monthly income should be ₹10,000"),
+  monthlyIncome: z.number().min(10000, "Minimum monthly income should be ₹10,000"),
   companyName: z.string().min(2, "Company Name must be at least 2 characters"),
-  experience: z.coerce.number().min(0, "Work experience cannot be negative"),
+  experience: z.number().min(0, "Work experience cannot be negative"),
 })
 
 const step3Schema = z.object({
@@ -385,7 +385,7 @@ export const LoanApplicationModal: React.FC<LoanApplicationModalProps> = ({ isOp
                       min={10000}
                       max={2000000}
                       step={10000}
-                      {...register("loanAmount")}
+                      {...register("loanAmount", { valueAsNumber: true })}
                       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#ee3124] outline-none"
                     />
                     <div className="flex justify-between text-[11px] text-gray-400 font-extrabold">
@@ -401,7 +401,7 @@ export const LoanApplicationModal: React.FC<LoanApplicationModalProps> = ({ isOp
                     <div className="flex flex-col gap-1.5 text-left">
                       <label className="text-xs font-bold text-gray-700">Loan Tenure</label>
                       <select 
-                        {...register("loanTenure")}
+                        {...register("loanTenure", { valueAsNumber: true })}
                         className="bg-white border border-gray-200 rounded-xl px-3.5 py-3 text-sm font-bold text-gray-800 outline-none focus-visible:ring-2 focus-visible:ring-[#ee3124] focus-visible:ring-offset-1 transition-all"
                       >
                         <option value="12">12 Months (1 Year)</option>
@@ -560,7 +560,7 @@ export const LoanApplicationModal: React.FC<LoanApplicationModalProps> = ({ isOp
                       <input 
                         type="number"
                         placeholder="e.g. 45000"
-                        {...register("monthlyIncome")}
+                        {...register("monthlyIncome", { valueAsNumber: true })}
                         className="bg-white border border-gray-200 rounded-xl px-3.5 py-3 text-sm font-bold text-gray-800 outline-none focus-visible:ring-2 focus-visible:ring-[#ee3124] focus-visible:ring-offset-1 transition-all placeholder:text-gray-400 placeholder:font-medium"
                       />
                       {errors.monthlyIncome && <span className="text-xs text-red-500 flex items-center gap-1 font-bold mt-0.5"><AlertCircle className="w-3.5 h-3.5" /> {errors.monthlyIncome.message}</span>}
@@ -584,7 +584,7 @@ export const LoanApplicationModal: React.FC<LoanApplicationModalProps> = ({ isOp
                       <input 
                         type="number"
                         placeholder="e.g. 3"
-                        {...register("experience")}
+                        {...register("experience", { valueAsNumber: true })}
                         className="bg-white border border-gray-200 rounded-xl px-3.5 py-3 text-sm font-bold text-gray-800 outline-none focus-visible:ring-2 focus-visible:ring-[#ee3124] focus-visible:ring-offset-1 transition-all placeholder:text-gray-400 placeholder:font-medium"
                       />
                       {errors.experience && <span className="text-xs text-red-500 flex items-center gap-1 font-bold mt-0.5"><AlertCircle className="w-3.5 h-3.5" /> {errors.experience.message}</span>}
