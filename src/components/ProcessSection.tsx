@@ -60,7 +60,8 @@ export const ProcessSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-20 w-full relative overflow-hidden bg-slate-50 border-b border-gray-100 select-none"
+      id="process-section"
+      className="py-10 w-full relative overflow-hidden bg-slate-50 border-b border-gray-100 select-none scroll-mt-20"
       style={{
         backgroundImage: "radial-gradient(#ee312408 1.5px, transparent 1.5px)",
         backgroundSize: "24px 24px",
@@ -110,7 +111,10 @@ export const ProcessSection: React.FC = () => {
                     style={{
                       backgroundColor: "#ffffff",
                       borderColor: isHovered ? "#ee3124" : "#f1f5f9",
-                      transform: isHovered ? "translateY(-6px)" : "translateY(0)",
+                      transform: isHovered 
+                        ? "perspective(1000px) translateY(-10px) rotateX(8deg) rotateY(-4deg) translateZ(10px)" 
+                        : "perspective(1000px) translateY(0) rotateX(0) rotateY(0) translateZ(0)",
+                      transformStyle: "preserve-3d",
                       boxShadow: isHovered
                         ? "0 20px 25px -5px rgba(238, 49, 36, 0.15), 0 10px 10px -5px rgba(238, 49, 36, 0.1)"
                         : "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",

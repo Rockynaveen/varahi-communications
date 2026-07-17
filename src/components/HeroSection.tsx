@@ -1,11 +1,15 @@
 import React from "react"
 import { ShieldCheck, Zap, Percent, Headphones, Home, Car, GraduationCap, Briefcase, Users, IndianRupee, Clock, ArrowRight, Check } from "lucide-react"
+import { useNavigate } from "react-router"
 
-interface HeroSectionProps {
-  onApplyClick?: () => void
-}
+export const HeroSection: React.FC = () => {
+  const navigate = useNavigate()
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
+  const handleNavigate = (path: string) => {
+    navigate(path)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
   return (
     <>
       <style>{`
@@ -26,7 +30,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
       `}</style>
 
       {/* Main Hero Container */}
-      <section className="relative bg-white pt-8 pb-20 md:pt-12 md:pb-24 w-full overflow-hidden z-20">
+      <section className="relative bg-white w-full overflow-hidden z-20 lg:h-[120vh] flex flex-col justify-center py-10 lg:py-0">
 
         {/* Background Dot Grid (Right side) */}
         <div
@@ -42,9 +46,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
         <div className="absolute right-[2%] top-[6%] w-[620px] h-[620px] rounded-full border border-red-100/50 pointer-events-none z-0 opacity-40 animate-ring" />
 
         {/* Floating Red Solid Circles */}
-        <div className="absolute top-[18%] right-[39%] w-3 h-3 rounded-full bg-[#ee3124] opacity-85 pointer-events-none" />
-        <div className="absolute bottom-[38%] right-[45%] w-2 h-2 rounded-full bg-[#ee3124] opacity-60 pointer-events-none" />
-        <div className="absolute top-[62%] right-[5%] w-4 h-4 rounded-full bg-[#ee3124] opacity-75 pointer-events-none" />
+        <div className="absolute top-[18%] right-[39%] w-3 h-3 rounded-full bg-[#ee3124] opacity-85 pointer-events-none animate-float-3d" />
+        <div className="absolute bottom-[38%] right-[45%] w-2 h-2 rounded-full bg-[#ee3124] opacity-60 pointer-events-none animate-float-3d" />
+        <div className="absolute top-[62%] right-[5%] w-4 h-4 rounded-full bg-[#ee3124] opacity-75 pointer-events-none animate-float-3d" />
 
         {/* Wave Background Layers at Bottom Left */}
         <div className="absolute bottom-0 left-0 w-full h-[520px] pointer-events-none z-0 overflow-hidden">
@@ -68,7 +72,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
             {/* Left Content Column */}
-            <div className="lg:col-span-5 text-left flex flex-col justify-center pb-12 lg:pb-24">
+            <div className="lg:col-span-5 text-left flex flex-col justify-center pb-12 lg:pb-24 animate-fade-in-left opacity-0">
 
               {/* Trusted Badge */}
               <div className="inline-flex items-center gap-2 bg-white border border-gray-100 rounded-full py-1.5 px-4 w-fit mb-8 shadow-sm">
@@ -126,14 +130,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
 
               {/* Action Buttons */}
               <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-4 items-center w-full max-w-md sm:max-w-none">
-                <button 
-                  onClick={onApplyClick}
-                  className="bg-[#ee3124] hover:bg-[#d8271c] active:scale-95 text-white font-bold text-xs sm:text-base px-3 py-3.5 sm:px-7 sm:py-4 rounded-2xl shadow-lg shadow-red-500/10 flex items-center justify-center gap-1.5 sm:gap-2 transition-all hover:translate-x-1 duration-200 cursor-pointer text-center"
+                <button
+                  onClick={() => handleNavigate("/apply")}
+                  className="border-2 border-red-100 hover:border-[#ee3124] bg-white text-[#ee3124] font-bold text-xs sm:text-base px-3 py-3.5 sm:px-7 sm:py-4 rounded-2xl flex items-center justify-center gap-1.5 sm:gap-2 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md text-center btn-3d"
                 >
                   Check Eligibility
                   <ArrowRight className="w-4 h-4 sm:w-5 h-5 flex-shrink-0" />
                 </button>
-                <button className="border-2 border-red-100 hover:border-[#ee3124] bg-white text-[#ee3124] font-bold text-xs sm:text-base px-3 py-3.5 sm:px-7 sm:py-4 rounded-2xl flex items-center justify-center gap-1.5 sm:gap-2 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md text-center">
+                <button
+                  onClick={() => handleNavigate("/contact")}
+                  className="bg-[#ee3124] hover:bg-[#d8271c] active:scale-95 text-white font-bold text-xs sm:text-base px-3 py-3.5 sm:px-7 sm:py-4 rounded-2xl shadow-lg shadow-red-500/10 flex items-center justify-center gap-1.5 sm:gap-2 transition-all duration-200 cursor-pointer text-center btn-3d"
+                >
                   <Headphones className="w-4 h-4 sm:w-5 h-5 flex-shrink-0" />
                   Talk to Expert
                 </button>
@@ -142,10 +149,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
             </div>
 
             {/* Right Column: Family Image in Red Circular Frame */}
-            <div className="lg:col-span-7 relative flex justify-center lg:justify-end pb-12 lg:pb-24">
+            <div className="lg:col-span-7 relative flex justify-center lg:justify-end pb-12 lg:pb-24 animate-fade-in-right opacity-0">
 
               {/* Circular Frame */}
-              <div className="relative w-[400px] h-[400px] sm:w-[460px] sm:h-[460px] rounded-full overflow-hidden border-[10px] border-white shadow-2xl bg-white z-10">
+              <div className="relative w-[400px] h-[400px] sm:w-[460px] sm:h-[460px] rounded-full overflow-hidden border-[10px] border-white shadow-2xl bg-white z-10 hover-3d cursor-pointer">
                 <img
                   src="/family_hero.png"
                   alt="Happy Indian Family"
@@ -154,7 +161,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
               </div>
 
               {/* Floating Card: "We're Here For You" */}
-              <div className="absolute right-0 sm:-right-4 top-10 z-20 bg-white rounded-3xl shadow-xl p-5 border border-gray-50 flex flex-col items-center text-center w-[160px] animate-float">
+              <div className="absolute right-0 sm:-right-4 top-10 z-20 bg-white rounded-3xl shadow-xl p-5 border border-gray-50 flex flex-col items-center text-center w-[160px] animate-float-3d">
                 <div className="w-12 h-12 rounded-full bg-red-50 text-[#ee3124] flex items-center justify-center mb-3">
                   <Users className="w-6 h-6" />
                 </div>
@@ -178,10 +185,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
             <div className="hidden lg:block lg:col-span-5" />
 
             {/* Right 7 columns: the 4 loan cards */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 animate-fade-in-up opacity-0 [animation-delay:0.25s]">
 
-               {/* Card 1: Home Loan */}
-              <div className="group bg-white rounded-[24px] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-3.5 border border-gray-100 flex flex-col justify-between h-[160px]">
+              {/* Card 1: Home Loan */}
+              <div className="group bg-white rounded-[24px] shadow-xl hover-3d transition-all duration-300 p-3.5 border border-gray-100 flex flex-col justify-between h-[160px]">
                 <div>
                   <div className="w-8 h-8 rounded-xl bg-red-50 text-[#ee3124] flex items-center justify-center mb-2">
                     <Home className="w-4 h-4" />
@@ -194,17 +201,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
                     Up to ₹5 Crore
                   </p>
                 </div>
-                <a 
-                  href="#" 
-                  onClick={(e) => { e.preventDefault(); if (onApplyClick) onApplyClick(); }}
-                  className="text-[11px] font-black text-[#ee3124] flex items-center gap-1 hover:gap-1.5 transition-all duration-200 w-fit"
+                <button
+                  onClick={() => handleNavigate("/apply")}
+                  className="text-[11px] font-black text-[#ee3124] flex items-center gap-1 hover:gap-1.5 transition-all duration-200 w-fit cursor-pointer"
                 >
                   Apply Now <ArrowRight className="w-3 h-3" />
-                </a>
+                </button>
               </div>
 
               {/* Card 2: Car Loan */}
-              <div className="group bg-white rounded-[24px] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-3.5 border border-gray-100 flex flex-col justify-between h-[160px]">
+              <div className="group bg-white rounded-[24px] shadow-xl hover-3d transition-all duration-300 p-3.5 border border-gray-100 flex flex-col justify-between h-[160px]">
                 <div>
                   <div className="w-8 h-8 rounded-xl bg-red-50 text-[#ee3124] flex items-center justify-center mb-2">
                     <Car className="w-4 h-4" />
@@ -217,17 +223,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
                     Up to 100% Funding
                   </p>
                 </div>
-                <a 
-                  href="#" 
-                  onClick={(e) => { e.preventDefault(); if (onApplyClick) onApplyClick(); }}
-                  className="text-[11px] font-black text-[#ee3124] flex items-center gap-1 hover:gap-1.5 transition-all duration-200 w-fit"
+                <button
+                  onClick={() => handleNavigate("/apply")}
+                  className="text-[11px] font-black text-[#ee3124] flex items-center gap-1 hover:gap-1.5 transition-all duration-200 w-fit cursor-pointer"
                 >
                   Apply Now <ArrowRight className="w-3 h-3" />
-                </a>
+                </button>
               </div>
 
               {/* Card 3: Personal Loan */}
-              <div className="group bg-white rounded-[24px] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-3.5 border border-gray-100 flex flex-col justify-between h-[160px]">
+              <div className="group bg-white rounded-[24px] shadow-xl hover-3d transition-all duration-300 p-3.5 border border-gray-100 flex flex-col justify-between h-[160px]">
                 <div>
                   <div className="w-8 h-8 rounded-xl bg-red-50 text-[#ee3124] flex items-center justify-center mb-2">
                     <GraduationCap className="w-4 h-4" />
@@ -240,17 +245,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
                     Up to ₹25 Lakhs
                   </p>
                 </div>
-                <a 
-                  href="#" 
-                  onClick={(e) => { e.preventDefault(); if (onApplyClick) onApplyClick(); }}
-                  className="text-[11px] font-black text-[#ee3124] flex items-center gap-1 hover:gap-1.5 transition-all duration-200 w-fit"
+                <button
+                  onClick={() => handleNavigate("/apply")}
+                  className="text-[11px] font-black text-[#ee3124] flex items-center gap-1 hover:gap-1.5 transition-all duration-200 w-fit cursor-pointer"
                 >
                   Apply Now <ArrowRight className="w-3 h-3" />
-                </a>
+                </button>
               </div>
 
               {/* Card 4: Business Loan */}
-              <div className="group bg-white rounded-[24px] shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-3.5 border border-gray-100 flex flex-col justify-between h-[160px]">
+              <div className="group bg-white rounded-[24px] shadow-xl hover-3d transition-all duration-300 p-3.5 border border-gray-100 flex flex-col justify-between h-[160px]">
                 <div>
                   <div className="w-8 h-8 rounded-xl bg-red-50 text-[#ee3124] flex items-center justify-center mb-2">
                     <Briefcase className="w-4 h-4" />
@@ -263,13 +267,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
                     Up to ₹50 Lakhs
                   </p>
                 </div>
-                <a 
-                  href="#" 
-                  onClick={(e) => { e.preventDefault(); if (onApplyClick) onApplyClick(); }}
-                  className="text-[11px] font-black text-[#ee3124] flex items-center gap-1 hover:gap-1.5 transition-all duration-200 w-fit"
+                <button
+                  onClick={() => handleNavigate("/apply")}
+                  className="text-[11px] font-black text-[#ee3124] flex items-center gap-1 hover:gap-1.5 transition-all duration-200 w-fit cursor-pointer"
                 >
                   Apply Now <ArrowRight className="w-3 h-3" />
-                </a>
+                </button>
               </div>
 
             </div>
@@ -277,7 +280,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
           </div>
 
           {/* Statistics Bar Section (Full width, placed at the very bottom) */}
-          <div className="relative z-30 mt-6 lg:mt-10 w-full">
+          <div className="relative z-30 mt-6 lg:mt-10 w-full animate-fade-in-up opacity-0 [animation-delay:0.45s]">
             <div className="bg-white rounded-3xl shadow-lg border border-gray-100 py-4 px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 divide-y sm:divide-y-0 lg:divide-x divide-gray-100">
 
               {/* Stat 1 */}

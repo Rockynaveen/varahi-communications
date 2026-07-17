@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Play } from "lucide-react"
+import { Link } from "react-router"
 
 export const CalculatorSection: React.FC = () => {
   const [amount, setAmount] = useState<number>(25000)
@@ -10,15 +11,15 @@ export const CalculatorSection: React.FC = () => {
   const monthlyPay = Math.floor(totalPayback / months)
 
   const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-IN", {
       style: "currency",
-      currency: "USD",
+      currency: "INR",
       maximumFractionDigits: 0,
     }).format(val)
   }
 
   return (
-    <section className="bg-slate-50 py-8 w-full relative border-b border-gray-100 overflow-hidden">
+    <section className="bg-slate-50 py-10 w-full relative border-b border-gray-100 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1200px] relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100/60">
           
@@ -66,11 +67,11 @@ export const CalculatorSection: React.FC = () => {
                 {/* Amount Slider Block */}
                 <div>
                   <div className="flex justify-between items-center text-xs font-semibold text-gray-500 mb-2">
-                    <span>$1,000</span>
+                    <span>₹1,000</span>
                     <span className="text-red-500 text-base font-bold bg-red-50 px-2.5 py-0.5 rounded-full border border-red-100">
                       {formatCurrency(amount)}
                     </span>
-                    <span>$50,000</span>
+                    <span>₹50,000</span>
                   </div>
 
                   <div className="relative flex items-center select-none">
@@ -143,15 +144,16 @@ export const CalculatorSection: React.FC = () => {
                 </div>
 
                 {/* Submit Action */}
-                <button
-                  type="button"
-                  className="w-full bg-red-500 hover:bg-red-600 active:scale-[0.98] text-white font-bold py-3 rounded-xl shadow-lg shadow-red-500/20 hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 uppercase tracking-wider text-xs cursor-pointer mt-3"
+                <Link
+                  to="/apply"
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="w-full bg-red-500 hover:bg-red-600 active:scale-[0.98] text-white font-bold py-3 rounded-xl shadow-lg shadow-red-500/20 hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 uppercase tracking-wider text-xs cursor-pointer mt-3 block text-center"
                 >
                   Apply For Loan
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
-                </button>
+                </Link>
               </div>
             </div>
 

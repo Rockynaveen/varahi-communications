@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { ScrollReveal } from "@/components/ui/ScrollReveal"
 
 interface LoanData {
   subtitle: string
@@ -17,6 +18,7 @@ export const ServicesSection: React.FC = () => {
   const categories = [
     {
       name: "Personal Loan",
+      image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&auto=format&fit=crop&q=80",
       icon: (
         <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10" />
@@ -26,6 +28,7 @@ export const ServicesSection: React.FC = () => {
     },
     {
       name: "Business Loan",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80",
       icon: (
         <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2h12a2 2 0 0 0 2-2V8z" />
@@ -38,6 +41,7 @@ export const ServicesSection: React.FC = () => {
     },
     {
       name: "Education Loan",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&auto=format&fit=crop&q=80",
       icon: (
         <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
@@ -47,6 +51,7 @@ export const ServicesSection: React.FC = () => {
     },
     {
       name: "House Loan",
+      image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&auto=format&fit=crop&q=80",
       icon: (
         <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -56,6 +61,7 @@ export const ServicesSection: React.FC = () => {
     },
     {
       name: "Payday Loan",
+      image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&auto=format&fit=crop&q=80",
       icon: (
         <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="2" y="6" width="20" height="12" rx="2" />
@@ -66,6 +72,7 @@ export const ServicesSection: React.FC = () => {
     },
     {
       name: "Agricultural Loan",
+      image: "https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?w=600&auto=format&fit=crop&q=80",
       icon: (
         <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2z" />
@@ -134,20 +141,20 @@ export const ServicesSection: React.FC = () => {
     {
       subtitle: "House loan",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
-      listTitle: "Types of business loan",
+        "Own your dream home with our affordable home finance services. We offer quick processing, doorstep service, and customizable repayment schedules for purchasing pre-owned homes, constructing new houses, or renovating existing properties.",
+      listTitle: "Types of house loan",
       listItems: [
-        "Secured loans",
-        "Unsecured loans",
-        "Revolving credit facilities",
-        "Business cash advances",
+        "Home Purchase Loans",
+        "Home Construction Loans",
+        "Home Extension & Renovation Loans",
+        "Balance Transfer & Top-up Loans",
       ],
       eligibilityTitle: "Eligibility and criteria for House loan",
       eligibilityDesc:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Salaried individuals, self-employed professionals, and business owners aged 21–65 with a steady income source and solid credit scoring are eligible to apply.",
       guideTitle: "House loan guide",
       guideDesc:
-        "Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis lacus vel facilisis.",
+        "Determine your property budget, review maximum eligible loan value, estimate monthly EMIs using our calculator widget, submit property details, and enjoy step-by-step guidance from our experts.",
     },
     {
       subtitle: "Payday loan",
@@ -192,7 +199,7 @@ export const ServicesSection: React.FC = () => {
   return (
     <section className="bg-white py-10 w-full">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1200px] text-center">
-        <div className="opacity-0 animate-fade-in-up">
+        <ScrollReveal animation="fade-up">
           <span className="text-red-500 text-xs md:text-sm font-bold tracking-wider uppercase mb-2 block">
             Knowledge of the market
           </span>
@@ -200,18 +207,18 @@ export const ServicesSection: React.FC = () => {
             Only the best professional services
           </h2>
           <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto mb-16 leading-relaxed">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.
+            Explore our curated list of loan and credit options designed to cover all stages of personal growth, academic dreams, business scaling, and agricultural expansion.
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="relative w-full max-w-[1000px] mx-auto mb-16 border-b border-gray-200 opacity-0 animate-fade-in" style={{ animationDelay: "200ms" }}>
-          <div
-            className="flex flex-row overflow-x-auto gap-8 justify-start md:justify-around items-center px-4 py-2 scroll-smooth select-none scrollbar-none"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
+        <ScrollReveal animation="fade-in" delay={150}>
+          <div className="relative w-full max-w-[1000px] mx-auto mb-16 border-b border-gray-200">
+            <div
+              className="flex flex-row overflow-x-auto gap-8 justify-start md:justify-around items-center px-4 py-2 scroll-smooth select-none scrollbar-none"
+              style={{
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
           >
             {categories.map((cat, idx) => {
               const isActive = activeIndex === idx
@@ -253,6 +260,7 @@ export const ServicesSection: React.FC = () => {
             })}
           </div>
         </div>
+      </ScrollReveal>
 
         <div
           key={activeIndex}
@@ -272,14 +280,14 @@ export const ServicesSection: React.FC = () => {
             </svg>
 
             <div
-              className="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] overflow-hidden border-8 border-white/90 bg-slate-200 shadow-xl animate-[morph-slow_10s_ease-in-out_infinite]"
+              className="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] overflow-hidden border-8 border-white/90 bg-slate-200 shadow-xl animate-[morph-slow_10s_ease-in-out_infinite] hover-3d cursor-pointer"
               style={{
                 borderRadius: "50% 50% 30% 70% / 50% 60% 40% 50%",
               }}
             >
               <img
-                src="/services_consultation.png"
-                alt="Loan Consultation"
+                src={categories[activeIndex].image}
+                alt={categories[activeIndex].name}
                 className="w-full h-full object-cover scale-105"
               />
               <div className="absolute inset-0 bg-red-500/5 mix-blend-overlay" />

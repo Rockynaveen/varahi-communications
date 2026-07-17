@@ -1,137 +1,251 @@
-import React, { useState } from "react"
-import { Phone, Menu, X, ChevronDown } from "lucide-react"
+import React, { useEffect, useState } from "react";
+import { Phone, Menu, X } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router";
 
-interface HeaderProps {
-  onApplyClick?: () => void
-}
+const Header: React.FC = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-export const Header: React.FC<HeaderProps> = ({ onApplyClick }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
-    { name: "Home", href: "#" },
-    { name: "About Us", href: "#" },
-    { name: "Loan Products", href: "#", hasDropdown: true },
-    { name: "How It Works", href: "#" },
-    { name: "FAQs", href: "#" },
-    { name: "Contact Us", href: "#" }
-  ]
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "#about-section" },
+    { name: "How It Works", href: "#process-section" },
+    { name: "FAQs", href: "#faq-section" },
+    { name: "Contact Us", href: "/contact" },
+  ];
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    itemName: string
+  ) => {
+    e.preventDefault();
+
+    if (itemName === "Home") {
+      navigate("/");
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      setMobileMenuOpen(false);
+      return;
+    }
+
+    if (itemName === "Contact Us") {
+      navigate("/contact");
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      setMobileMenuOpen(false);
+      return;
+    }
+
+    const sectionId =
+      itemName === "About Us"
+        ? "about-section"
+        : itemName === "How It Works"
+          ? "process-section"
+          : "faq-section";
+
+    if (location.pathname !== "/") {
+      navigate("/");
+
+      setTimeout(() => {
+        document
+          .getElementById(sectionId)
+          ?.scrollIntoView({ behavior: "smooth" });
+      }, 200);
+    } else {
+      document
+        .getElementById(sectionId)
+        ?.scrollIntoView({ behavior: "smooth" });
+    }
+
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <header className="sticky top-0 bg-white z-50 w-full border-b border-gray-100 shadow-sm transition-all duration-300">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between h-20">
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white ${isScrolled
+          ? "shadow-lg border-b border-gray-100"
+          : "shadow-sm"
+          }`}
+      >
+        <div className="max-w-[1440px] mx-auto h-20 px-6 md:px-12 lg:px-24 flex items-center justify-between">
 
-        {/* Brand Logo */}
-        <a href="#" className="flex items-center gap-2 group select-none">
-          <div className="flex items-baseline text-2xl font-black tracking-tight text-gray-950 leading-none">
-            Varahi<span className="text-[#ee3124]"></span>
-          </div>
-        </a>
+          {/* Logo */}
 
-        {/* Desktop Menu Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {navItems.map((item, idx) => (
-            <div key={idx} className="relative group py-6 cursor-pointer">
+          <Link
+            to="/"
+            onClick={(e) => handleNavClick(e, "Home")}
+            className="flex items-center gap-2"
+          >
+            <h2 className="text-3xl font-black tracking-tight text-gray-900">
+              Varahi
+              <span className="text-[#ee3124]">.</span>
+            </h2>
+          </Link>
+
+          {/* Desktop Menu */}
+
+          <nav className="hidden lg:flex items-center gap-9">
+            {navItems.map((item) => (
               <a
+                key={item.name}
                 href={item.href}
-                className="flex items-center gap-1 text-[15px] font-bold text-gray-800 hover:text-[#ee3124] transition-colors duration-200"
+                onClick={(e) => handleNavClick(e, item.name)}
+                className="relative group text-[15px] font-semibold text-gray-800 hover:text-[#ee3124] transition-colors"
               >
                 {item.name}
-                {item.hasDropdown && <ChevronDown className="w-3.5 h-3.5 mt-0.5 text-gray-400 group-hover:text-[#ee3124] transition-colors" />}
-              </a>
-              {/* Highlight bar */}
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ee3124] transition-all duration-300 group-hover:w-full" />
-            </div>
-          ))}
-        </nav>
 
-        {/* Right Info and Actions */}
-        <div className="hidden lg:flex items-center gap-6">
-          {/* Phone call widget */}
-          <div className="flex items-center gap-3 text-left">
-            <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-[#ee3124]">
-              <Phone className="w-4.5 h-4.5 fill-current" />
-            </div>
-            <div>
-              <a
-                href="tel:18001234567"
-                className="text-sm font-extrabold text-gray-950 hover:text-[#ee3124] transition-colors leading-none"
-              >
-                1800 123 4567
+                <span className="absolute -bottom-2 left-0 h-[2px] w-0 bg-[#ee3124] transition-all duration-300 group-hover:w-full"></span>
               </a>
-              <p className="text-[10px] text-gray-400 font-bold leading-none mt-1">
-                Mon - Sat 9AM - 7PM
-              </p>
+            ))}
+          </nav>
+
+          {/* Right Side */}
+
+          <div className="hidden lg:flex items-center gap-6">
+
+            <div className="flex items-center gap-3">
+
+              <div className="w-11 h-11 rounded-full bg-[#ee3124] flex items-center justify-center text-white">
+                <Phone size={18} />
+              </div>
+
+              <div>
+                <a
+                  href="tel:18001234567"
+                  className="font-bold text-gray-900"
+                >
+                  1800 123 4567
+                </a>
+
+                <p className="text-xs text-gray-500">
+                  Mon - Sat • 9AM - 7PM
+                </p>
+              </div>
+
             </div>
+
+            <Link
+              to="/apply"
+              className="bg-[#ee3124] hover:bg-red-700 text-white rounded-full px-7 py-3 font-semibold shadow-lg transition-all duration-300 hover:scale-105"
+            >
+              Apply Now
+            </Link>
+
           </div>
 
-          {/* Apply button */}
-          <button 
-            onClick={onApplyClick}
-            className="bg-[#ee3124] hover:bg-[#d8271c] active:scale-95 text-white text-sm font-bold px-7 py-3 rounded-full shadow-lg shadow-red-500/10 transition-all duration-200 cursor-pointer"
+          {/* Mobile */}
+
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden text-gray-900"
           >
-            Apply Now
+            {mobileMenuOpen ? (
+              <X size={28} />
+            ) : (
+              <Menu size={28} />
+            )}
           </button>
+
         </div>
+        {/* Mobile Menu */}
 
-        {/* Mobile menu triggers */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 hover:bg-gray-50 text-gray-700 hover:text-red-500 rounded-full transition-colors cursor-pointer"
-          aria-label="Toggle Navigation"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {mobileMenuOpen && (
+          <div className="lg:hidden absolute top-20 left-0 w-full bg-white border-t border-gray-100 shadow-2xl animate-[fadeDown_0.3s_ease]">
+            <div className="flex flex-col px-6 py-5">
 
-      </div>
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.name)}
+                  className="py-4 border-b border-gray-100 text-gray-800 font-semibold hover:text-[#ee3124] transition-colors"
+                >
+                  {item.name}
+                </a>
+              ))}
 
-      {/* Mobile drawer overlays */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 px-6 py-4 flex flex-col gap-4 absolute left-0 w-full shadow-2xl z-50 animate-[fadeInUp_0.2s_ease-out]">
-          {navItems.map((item, idx) => (
-            <div key={idx} className="flex flex-col border-b border-gray-50 pb-2">
-              <a
-                href={item.href}
+              {/* Phone */}
+
+              <div className="mt-6 flex items-center gap-4 rounded-2xl bg-red-50 p-4">
+
+                <div className="w-11 h-11 rounded-full bg-[#ee3124] flex items-center justify-center text-white">
+                  <Phone size={18} />
+                </div>
+
+                <div>
+                  <p className="text-xs text-gray-500">
+                    Need Assistance?
+                  </p>
+
+                  <a
+                    href="tel:18001234567"
+                    className="font-bold text-gray-900"
+                  >
+                    1800 123 4567
+                  </a>
+
+                  <p className="text-xs text-gray-500">
+                    Mon - Sat • 9AM - 7PM
+                  </p>
+                </div>
+
+              </div>
+
+              {/* Apply Button */}
+
+              <Link
+                to="/apply"
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-bold text-gray-700 hover:text-red-500 py-2 flex items-center justify-between"
+                className="mt-5 bg-[#ee3124] hover:bg-red-700 text-white text-center py-3 rounded-full font-semibold transition-all duration-300"
               >
-                {item.name}
-                {item.hasDropdown && <ChevronDown className="w-4 h-4 text-gray-400" />}
-              </a>
-            </div>
-          ))}
+                Apply Now
+              </Link>
 
-          {/* Phone call widget for mobile */}
-          <div className="flex items-center gap-3 py-2 text-left">
-            <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-[#ee3124]">
-              <Phone className="w-4.5 h-4.5 fill-current" />
-            </div>
-            <div>
-              <a
-                href="tel:18001234567"
-                className="text-sm font-extrabold text-gray-950 leading-none"
-              >
-                1800 123 4567
-              </a>
-              <p className="text-[10px] text-gray-400 font-bold leading-none mt-1">
-                Mon - Sat 9AM - 7PM
-              </p>
             </div>
           </div>
+        )}
 
-          {/* Apply button for mobile */}
-          <button 
-            onClick={() => {
-              setMobileMenuOpen(false);
-              if (onApplyClick) onApplyClick();
-            }}
-            className="bg-[#ee3124] hover:bg-[#d8271c] text-white text-sm font-bold py-3.5 rounded-full shadow-md w-full cursor-pointer mt-2"
-          >
-            Apply Now
-          </button>
-        </div>
-      )}
-    </header>
-  )
-}
-export default Header
+      </header>
+
+      {/* Header Spacer */}
+
+      <div className="h-20"></div>
+
+      <style>{`
+        @keyframes fadeDown{
+          from{
+            opacity:0;
+            transform:translateY(-15px);
+          }
+          to{
+            opacity:1;
+            transform:translateY(0);
+          }
+        }
+      `}</style>
+
+    </>
+  );
+};
+
+export default Header;
